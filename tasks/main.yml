@@ -1,0 +1,18 @@
+---
+- name: Do preparatory work
+  ansible.builtin.include_tasks:
+    file: preparation/main.yml
+    apply:
+      tags:
+        - preparation_all
+        - always  # can be slipped by '--skip-tags always' if needed for some reason
+  tags:
+    - preparation
+    - always
+
+- name: Install and configure base dependencies
+  ansible.builtin.include_tasks:
+    file: base_dependencies/main.yml
+    apply:
+      tags: base_dependencies_all
+  tags: base_dependencies

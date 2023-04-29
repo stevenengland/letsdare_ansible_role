@@ -1,0 +1,4 @@
+---
+- name: Include needed vars
+  ansible.builtin.include_vars:
+    file: ../defaults/main.yml

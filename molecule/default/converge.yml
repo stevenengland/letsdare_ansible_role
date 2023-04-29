@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  any_errors_fatal: true
+  tasks:
+    - name: "Include stevenengland.letsdare"
+      ansible.builtin.include_role:
+        name: "stevenengland.letsdare"
+      tags:
+        - preparation
+        - base_dependencies
+        - letsdare

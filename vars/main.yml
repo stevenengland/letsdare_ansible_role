@@ -1,0 +1,7 @@
+---
+# Vars that shouldn't be altered by the user
+ansible_version_minimum: "2.12"
+ansible_required_collections:
+  # [a-z_]+\.[a-z_]+(\.[a-z_]+)?:
+  - community.general
+  - ansible.posix

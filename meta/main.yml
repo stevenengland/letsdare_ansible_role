@@ -1,0 +1,31 @@
+---
+galaxy_info:
+  author: stevenengland
+  role_name: letsdare
+  description: Ansible role to install an data rescue environment
+  company: stevenengland
+
+  # If the issue tracker for your role is not on github, uncomment the
+  # next line and provide a value
+  # issue_tracker_url: http://example.com/issue/tracker
+
+  license: MIT
+
+  min_ansible_version: "2.12"
+
+  platforms:
+    - name: Debian
+      versions:
+        - bullseye
+
+    - name: Ubuntu
+      versions:
+        - jammy
+        - focal
+
+  galaxy_tags:
+    - data
+    - recovery
+    - rescue
+
+dependencies: []
