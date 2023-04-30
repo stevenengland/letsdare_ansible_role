@@ -1,7 +1,7 @@
 ---
 - name: Setup repo packages
   ansible.builtin.include_tasks:
-    file: repo_packages.yml
+    file: testdisk.yml
     apply:
-      tags: repo_packages
-  tags: repo_packages
+      tags: testdisk
+  tags: testdisk

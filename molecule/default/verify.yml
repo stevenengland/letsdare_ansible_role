@@ -2,7 +2,14 @@
 - name: Verify
   hosts: all
   gather_facts: true
+  vars_files:
+    - ../../defaults/main.yml
+    - ../../vars/main.yml
   tasks:
     - name: Test the installation with default verifier
       ansible.builtin.include_tasks:
         file: ../default_verification.yml
+
+    - name: "Include test_default"
+      ansible.builtin.import_role:
+        name: "test_default"

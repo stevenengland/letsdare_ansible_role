@@ -5,3 +5,10 @@
     apply:
       tags: platform
   tags: platform
+
+- name: Create system user
+  ansible.builtin.include_tasks:
+    file: system_user.yml
+    apply:
+      tags: system_user
+  tags: system_user
