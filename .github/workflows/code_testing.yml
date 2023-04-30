@@ -30,7 +30,7 @@ jobs:
           - ubuntu2004
         molecule_scenario: [
           check_fails,
-          default,
+          default
         ]
         include:
           - molecule_scenario: default
