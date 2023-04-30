@@ -1,0 +1,4 @@
+---
+- name: Test testdisk
+  ansible.builtin.include_tasks:
+    file: test_testdisk.yml
