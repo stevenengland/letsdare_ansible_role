@@ -11,3 +11,8 @@ lint:
 	@yamllint -c=.yamllint.yml . || true
 	@echo "*********** ANSIBLE LINT"
 	@ansible-lint -c .ansible-lint
+
+converge_scratch: 
+	@molecule destroy
+	@molecule create
+	@molecule converge 
