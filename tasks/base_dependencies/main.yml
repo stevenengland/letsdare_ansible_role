@@ -1,7 +1,21 @@
 ---
 - name: Setup repo packages
   ansible.builtin.include_tasks:
+    file: repo_packages.yml
+    apply:
+      tags: repo_packages
+  tags: repo_packages
+
+- name: Setup testdisk
+  ansible.builtin.include_tasks:
     file: testdisk.yml
     apply:
       tags: testdisk
   tags: testdisk
+
+- name: Setup ddrescue
+  ansible.builtin.include_tasks:
+    file: ddrescue.yml
+    apply:
+      tags: ddrescue
+  tags: ddrescue
