@@ -3,5 +3,5 @@
   ansible.builtin.shell: |
     ddrescue --version
   register: _ddrescue_result
-  failed_when: 'not "Copyright (C) 2023 Antonio Diaz Diaz" in _ddrescue_result.stdout'
+  failed_when: 'not "GNU ddrescue {{ letsdare_ddrescue_version }}" in _ddrescue_result.stdout'
   changed_when: false

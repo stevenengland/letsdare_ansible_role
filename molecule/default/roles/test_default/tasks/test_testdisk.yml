@@ -1,8 +1,7 @@
 ---
 - name: Check if testdisk can be called
-  become: true
   ansible.builtin.shell: |
-    testdisk /cmd /dev/notthere analyze
+    testdisk /version
   register: _testdisk_result
-  failed_when: 'not "Unable to open file or device /dev/notthere" in _testdisk_result.stdout'
+  failed_when: 'not "Version: {{ letsdare_testdisk_version }}" in _testdisk_result.stdout'
   changed_when: false
