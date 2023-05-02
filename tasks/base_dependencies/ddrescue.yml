@@ -1,0 +1,58 @@
+---
+- name: Check if ddrescue install dir exists
+  become: true
+  ansible.builtin.stat:
+    path: "{{ letsdare_dirs_deps_ddrescue }}"
+  register: _ddrescue_dir_state
+
+- name: Create ddrescue install path
+  become: true
+  when: not _ddrescue_dir_state.stat.exists
+  ansible.builtin.file:
+    path: "{{ letsdare_dirs_deps_ddrescue }}"
+    state: directory
+    owner: "{{ letsdare_system_user }}"
+    group: "{{ letsdare_system_group }}"
+    mode: "750"
+
+- name: Download and extract ddrescue
+  become: true
+  ansible.builtin.unarchive:
+    src: "{{ letsdare_ddrescue_download_url }}"
+    remote_src: true
+    dest: "{{ letsdare_dirs_deps_ddrescue }}"
+    owner: "{{ letsdare_system_user }}"
+    group: "{{ letsdare_system_group }}"
+    extra_opts: "--strip-components=1"
+  register: _download_and_unarchive_ddrescue
+  until:
+    - "not 'urlopen error' in _download_and_unarchive_ddrescue.msg | default('')"
+    - "not 'The read operation timed out' in _download_and_unarchive_ddrescue.msg | default('')"
+  retries: 3
+  delay: 60
+
+- name: Run configure
+  become: true
+  become_user: "{{ letsdare_system_user }}"
+  ansible.builtin.command: ./configure
+  args:
+    chdir: "{{ letsdare_dirs_deps_ddrescue }}"
+  changed_when: false
+
+- name: Build the default target
+  become: true
+  become_user: "{{ letsdare_system_user }}"
+  community.general.make:
+    chdir: "{{ letsdare_dirs_deps_ddrescue }}"
+  changed_when: false
+
+- name: Deploy wrapper script
+  become: true
+  ansible.builtin.blockinfile:
+    path: /usr/local/bin/ddrescue
+    mode: a+x
+    create: true
+    block: |
+      #!/bin/bash
+
+      {{ letsdare_dirs_deps_ddrescue }}/ddrescue $@

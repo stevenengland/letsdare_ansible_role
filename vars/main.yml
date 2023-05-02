@@ -8,5 +8,9 @@ ansible_required_collections:
 
 letsdare_dirs_tmp: /tmp/letsdare
 letsdare_dirs_deps: /opt/letsdare
+letsdare_dirs_deps_ddrescue: "{{ letsdare_dirs_deps }}/ddrescue"
 letsdare_dirs_deps_testdisk: "{{ letsdare_dirs_deps }}/testdisk"
-letsdare_testdisk_download_url: https://www.cgsecurity.org/testdisk-7.2-WIP.linux26-x86_64.tar.bz2
+letsdare_ddrescue_download_url: "http://ftp.gnu.org/gnu/ddrescue/ddrescue-{{ letsdare_ddrescue_version }}.tar.lz"
+letsdare_ddrescue_version: "1.27"
+letsdare_testdisk_download_url: "https://www.cgsecurity.org/testdisk-{{ letsdare_testdisk_version }}.linux26-x86_64.tar.bz2"
+letsdare_testdisk_version: "7.2-WIP"

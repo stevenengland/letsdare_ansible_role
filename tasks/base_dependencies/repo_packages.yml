@@ -16,6 +16,7 @@
       # letsdare
       - python3-pip
       - python3-venv
+      - lzip
       # Dev
       - build-essential
       - git

@@ -1,0 +1,7 @@
+---
+- name: Check if ddrescue can be called
+  ansible.builtin.shell: |
+    ddrescue --version
+  register: _ddrescue_result
+  failed_when: 'not "GNU ddrescue {{ letsdare_ddrescue_version }}" in _ddrescue_result.stdout'
+  changed_when: false

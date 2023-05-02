@@ -75,6 +75,7 @@ jobs:
               -r .github/workflows/requirements.txt
             fi
 
+            pip list
             molecule --version
             docker --version
             ansible-galaxy install --verbose -r requirements.yml
