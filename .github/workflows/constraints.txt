@@ -1,5 +1,5 @@
 ansible==7.5.0
+ansible-compat==3.0.2  # https://github.com/ansible-community/molecule/issues/3903
 ansible-lint==6.15.0
-molecule==4.0.4
 pip==23.1
 yamllint==1.30.0
