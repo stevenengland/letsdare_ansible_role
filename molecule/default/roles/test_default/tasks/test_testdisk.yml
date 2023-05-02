@@ -1,5 +1,6 @@
 ---
 - name: Check if testdisk can be called
+  become: true
   ansible.builtin.shell: |
     testdisk /version
   register: _testdisk_result
