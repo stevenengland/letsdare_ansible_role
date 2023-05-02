@@ -44,6 +44,7 @@
   become_user: "{{ letsdare_system_user }}"
   community.general.make:
     chdir: "{{ letsdare_dirs_deps_ddrescue }}"
+  changed_when: false
 
 - name: Deploy wrapper script
   become: true
