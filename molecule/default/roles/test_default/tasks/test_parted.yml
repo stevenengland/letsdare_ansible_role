@@ -1,0 +1,8 @@
+---
+- name: Check if parted can be called
+  become: true
+  ansible.builtin.shell: |
+    parted -v
+  register: _parted_result
+  failed_when: 'not "parted (GNU parted) {{ letsdare_parted_version }}" in _parted_result.stdout'
+  changed_when: false
