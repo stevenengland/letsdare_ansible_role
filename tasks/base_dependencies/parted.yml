@@ -1,0 +1,69 @@
+---
+- name: Install base dependencies for parted
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    pkg:
+      - uuid-dev
+      - libdevmapper-dev
+      - libncurses-dev
+      - libreadline-dev
+      - lvm2
+
+- name: Check if parted install dir exists
+  become: true
+  ansible.builtin.stat:
+    path: "{{ letsdare_dirs_deps_parted }}"
+  register: _parted_dir_state
+
+- name: Create parted install path
+  become: true
+  when: not _parted_dir_state.stat.exists
+  ansible.builtin.file:
+    path: "{{ letsdare_dirs_deps_parted }}"
+    state: directory
+    owner: "{{ letsdare_system_user }}"
+    group: "{{ letsdare_system_group }}"
+    mode: "750"
+
+- name: Download and extract parted
+  become: true
+  ansible.builtin.unarchive:
+    src: "{{ letsdare_parted_download_url }}"
+    remote_src: true
+    dest: "{{ letsdare_dirs_deps_parted }}"
+    owner: "{{ letsdare_system_user }}"
+    group: "{{ letsdare_system_group }}"
+    extra_opts: "--strip-components=1"
+  register: _download_and_unarchive_parted
+  until:
+    - "not 'urlopen error' in _download_and_unarchive_parted.msg | default('')"
+    - "not 'The read operation timed out' in _download_and_unarchive_parted.msg | default('')"
+  retries: 3
+  delay: 60
+
+- name: Run configure
+  become: true
+  become_user: "{{ letsdare_system_user }}"
+  ansible.builtin.command: ./configure
+  args:
+    chdir: "{{ letsdare_dirs_deps_parted }}"
+  changed_when: false
+
+- name: Build the default target
+  become: true
+  become_user: "{{ letsdare_system_user }}"
+  community.general.make:
+    chdir: "{{ letsdare_dirs_deps_parted }}"
+  changed_when: false
+
+- name: Deploy wrapper script
+  become: true
+  ansible.builtin.blockinfile:
+    path: /usr/local/bin/parted
+    mode: a+x
+    create: true
+    block: |
+      #!/bin/bash
+
+      {{ letsdare_dirs_deps_parted }}/parted/parted $@

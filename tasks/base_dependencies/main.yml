@@ -6,6 +6,13 @@
       tags: repo_packages
   tags: repo_packages
 
+- name: Setup parted
+  ansible.builtin.include_tasks:
+    file: parted.yml
+    apply:
+      tags: parted
+  tags: parted
+
 - name: Setup testdisk
   ansible.builtin.include_tasks:
     file: testdisk.yml

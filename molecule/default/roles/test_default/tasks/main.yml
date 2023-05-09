@@ -1,4 +1,12 @@
 ---
+- name: Test parted
+  ansible.builtin.include_tasks:
+    file: test_parted.yml
+
 - name: Test testdisk
   ansible.builtin.include_tasks:
     file: test_testdisk.yml
+
+- name: Test ddrescue
+  ansible.builtin.include_tasks:
+    file: test_ddrescue.yml
