@@ -1,19 +1,12 @@
 ---
-- name: Check if testdisk install dir exists
-  become: true
-  ansible.builtin.stat:
-    path: "{{ letsdare_dirs_deps_testdisk }}"
-  register: _testdisk_dir_state
-
 - name: Create testdisk install path
   become: true
-  when: not _testdisk_dir_state.stat.exists
   ansible.builtin.file:
     path: "{{ letsdare_dirs_deps_testdisk }}"
     state: directory
     owner: "{{ letsdare_system_user }}"
     group: "{{ letsdare_system_group }}"
-    mode: "750"
+    mode: "755"
 
 - name: Download and extract testdisk
   become: true
@@ -24,6 +17,7 @@
     owner: "{{ letsdare_system_user }}"
     group: "{{ letsdare_system_group }}"
     extra_opts: "--strip-components=1"
+    mode: "755"
   register: _download_and_unarchive_testdisk
   until:
     - "not 'urlopen error' in _download_and_unarchive_testdisk.msg | default('')"

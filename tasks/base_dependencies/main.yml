@@ -1,4 +1,13 @@
 ---
+- name: Create letsdare install path
+  become: true
+  ansible.builtin.file:
+    path: "{{ letsdare_dirs_deps }}"
+    state: directory
+    owner: "{{ letsdare_system_user }}"
+    group: "{{ letsdare_system_group }}"
+    mode: "755"
+
 - name: Setup repo packages
   ansible.builtin.include_tasks:
     file: repo_packages.yml

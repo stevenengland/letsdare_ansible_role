@@ -1,6 +1,5 @@
 ---
 - name: Check if ddrescue can be called
-  become: true
   ansible.builtin.shell: |
     ddrescue --version
   register: _ddrescue_result

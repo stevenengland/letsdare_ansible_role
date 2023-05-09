@@ -1,19 +1,12 @@
 ---
-- name: Check if ddrescue install dir exists
-  become: true
-  ansible.builtin.stat:
-    path: "{{ letsdare_dirs_deps_ddrescue }}"
-  register: _ddrescue_dir_state
-
 - name: Create ddrescue install path
   become: true
-  when: not _ddrescue_dir_state.stat.exists
   ansible.builtin.file:
     path: "{{ letsdare_dirs_deps_ddrescue }}"
     state: directory
     owner: "{{ letsdare_system_user }}"
     group: "{{ letsdare_system_group }}"
-    mode: "750"
+    mode: "755"
 
 - name: Download and extract ddrescue
   become: true
@@ -24,6 +17,7 @@
     owner: "{{ letsdare_system_user }}"
     group: "{{ letsdare_system_group }}"
     extra_opts: "--strip-components=1"
+    mode: "755"
   register: _download_and_unarchive_ddrescue
   until:
     - "not 'urlopen error' in _download_and_unarchive_ddrescue.msg | default('')"
