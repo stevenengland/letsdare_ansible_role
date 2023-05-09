@@ -1,7 +1,7 @@
 ---
 letsdare_system_group: letsdare
 letsdare_system_group_gid:
-letsdare_system_init_system: systemd
+letsdare_system_init_system: None  # systemd, ...
 letsdare_system_user: letsdare
 letsdare_system_user_additional_groups: []
 letsdare_system_user_uid:
