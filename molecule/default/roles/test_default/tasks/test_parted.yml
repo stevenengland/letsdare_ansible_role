@@ -1,5 +1,6 @@
 ---
 - name: Check if parted can be called
+  become: true
   ansible.builtin.shell: |
     parted -v
   register: _parted_result
